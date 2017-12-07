@@ -1,0 +1,51 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+    <div class = "flash">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}         
+            {% for message in messages %}
+            <div class="alert alert-warning" role="alert">
+                <strong> {{ message }} </strong>
+            </div>
+            {% endfor %}    
+        {% endif %}
+        {% endwith %}
+    </div>
+
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1">
+			<h1 class="text-capitalize my-4">{{ category.name }}</h1>
+		</div>
+	</div>
+
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-11 padding-none">
+			<a href="{{url_for('newCatalogItem', category_id = category.id)}}">
+				<button class="btn btn-default" id="new-menu-item">
+					<span class="glyphicon glyphicon-glass" aria-hidden="true"></span>Add New Item
+				</button>
+			</a>
+		</div>
+		<div class="col-md-7"></div>
+	</div>
+	
+	{% if items !=[] %}	
+        <div class="row">
+            {% for i in items %}
+                <div class="col-12 col-lg-3 mt-4  catalog-item">
+                    <h3>{{i.name}}</h3>
+                    <p>{{i.description}}</p>
+                    {% if i.user_id == login_user_id %}
+                        <a href='{{url_for('editCatalogItem', category_id = category.id, item_id=i.id ) }}'>Edit</a> | 
+                        <a href='{{url_for('deleteCatalogItem', category_id = category.id, item_id=i.id ) }}'>Delete</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+	{% endif %}
+{% endblock %}

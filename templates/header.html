@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+    <p class="navbar-brand">
+        <a class="nav-link h2" href="{{url_for('showCategories')}}">Catalog</a>
+    </p>
+    <p class="nav-item">
+        {%if 'username' not in session %}
+            <a class="nav-link" href="{{url_for('showLogin')}}">Click Here to Login </a>
+        {% else %}
+            <a class="nav-link" href="{{url_for('disconnect')}}">Logout </a>
+        {% endif %}
+    </p>
+</nav>
