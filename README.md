@@ -42,7 +42,7 @@ This APP is a RESTful web application using the Python framework Flask along wit
 
   * `server.py`
 
-  * `client_secrets.json`
+  * `g_client_secrets.json`
 
   * `fb_client_secrets.json`
 
