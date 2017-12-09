@@ -215,20 +215,10 @@ def gdisconnect():
             json.dumps('Current user not connected.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    # print 'In gdisconnect access token is ', access_token
-    # print 'User name is: '
-    # print login_session['username']
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']  # noqa
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
-    # print 'result is '
-    # print result
     if result['status'] == '200':
-        del login_session['access_token']
-        del login_session['gplus_id']
-        del login_session['username']
-        del login_session['email']
-        del login_session['picture']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -248,6 +238,7 @@ def disconnect():
     if 'provider' in login_session:
         if login_session['provider'] == 'google':
             gdisconnect()
+            del login_session['gplus_id']
             del login_session['access_token']
         if login_session['provider'] == 'facebook':
             fbdisconnect()
@@ -341,6 +332,11 @@ def editCatalogItem(category_id, item_id):
     editedItem = session.query(CatalogItem).filter_by(id=item_id).one()
     category = session.query(Category).filter_by(id=category_id).one()
     categories = session.query(Category).all()
+    if ('user_id' not in login_session) or (
+            login_session['user_id'] != editedItem.user_id):
+        return "<script>function myFunction() {alert('You are not authorized to edit \
+    this item in the category. Please list your own item first.');}</script><body \
+    onload='myFunction()'>"
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -371,6 +367,11 @@ def deleteCatalogItem(category_id, item_id):
         return redirect('login')
     category = session.query(Category).filter_by(id=category_id).one()
     itemToDelete = session.query(CatalogItem).filter_by(id=item_id).one()
+    if ('user_id' not in login_session) or (
+            login_session['user_id'] != itemToDelete.user_id):
+        return "<script>function myFunction() {alert('You are not authorized to delete \
+    this item in the category. Please list your own item first.');}</script><body \
+    onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
