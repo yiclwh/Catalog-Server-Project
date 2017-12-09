@@ -6,10 +6,12 @@
 
 
 
- Catalog APP is an application that provides a list of items within a variety of categories as well as provide a user registration and authentication system.
+Catalog APP is an application that provides a list of items within a variety of categories as well as provide a user registration and authentication system, all data is saved on a server database.
 
 
-This APP is a RESTful web application using the Python framework Flask along with implementing third-party OAuth authentication. Registered users will have the ability to post, edit and delete their own items.
+This APP is a **RESTful** web application using the Python framework **Flask** along with implementing third-party **OAuth** authentication. Registered users will have the ability to post, edit and delete their own items.
+
+The project also implements **JSON** endpoints that serve the same information as displayed in the HTML endpoints for an arbitrary items in the catalog.
 
 
 
@@ -48,16 +50,25 @@ This APP is a RESTful web application using the Python framework Flask along wit
 
   * `README.md`
 
-  * templates
+* Templates/Views
 
     * `categories.html`
+
     * `categoryitems.html`
+
     * `deleteCatalogItem.html`
+
     * `editCatalogItem.html`
+
     * `header.html`
+
     * `login.html`
+
     * `main.html`
+
     * `newCatalogItem.html`
+
+
 
 
 
@@ -97,7 +108,7 @@ This APP is a RESTful web application using the Python framework Flask along wit
   * Using the Terminal:
 
 
-    * Type `python3 loganalysis.py` or `./logsanalysis.py`
+    * Type `python3 server.py` or `./server.py`
 
 
 
