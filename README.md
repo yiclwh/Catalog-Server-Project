@@ -33,6 +33,8 @@ The project also implements **JSON** endpoints that serve the same information a
   * SQLAlchemy
 
   * oauth2client
+  
+  * requests
 
 
 
