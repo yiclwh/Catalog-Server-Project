@@ -17,7 +17,7 @@ import requests
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
-    open('g_client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/catalog/catalog/g_client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Catalog Application"
 
 # Connect to Database and create database session
@@ -51,9 +51,9 @@ def fbconnect():
 
     app_id = json.loads(
         open(
-            'fb_client_secrets.json',
+            '/var/www/catalog/catalog/fb_client_secrets.json',
             'r').read())['web']['app_id']
-    app_secret = json.loads(open('fb_client_secrets.json', 'r').read())[
+    app_secret = json.loads(open('/var/www/catalog/catalog/fb_client_secrets.json', 'r').read())[
         'web']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id={0}&client_secret={1}&fb_exchange_token={2}'.format(  # noqa
         app_id, app_secret, access_token)
@@ -126,7 +126,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('g_client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/catalog/catalog/g_client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
