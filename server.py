@@ -406,4 +406,4 @@ def create_user(login_session):
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
     app.debug = False
-    app.run(host='0.0.0.0', port=80)
+    app.run()
