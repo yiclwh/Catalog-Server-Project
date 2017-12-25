@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 from flask import Flask, render_template, request, make_response
 from flask import redirect, jsonify, url_for, flash
 from sqlalchemy import create_engine, asc
